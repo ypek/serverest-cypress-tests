@@ -56,4 +56,66 @@ describe('API - Usuários', () => {
       expect(primeiroUsuario).to.have.all.keys('nome', 'email', 'password', 'administrador', '_id')
     })
   })
+
+  it('deve editar um usuário com sucesso', () => {
+    cy.gerarUsuario().then((usuario) => {
+      // Pré-condição: criar usuário
+      cy.cadastrarUsuarioApi(usuario).then((resCadastro) => {
+        const userId = resCadastro.body._id
+
+        // Ação: editar nome do usuário
+        const dadosAtualizados = {
+          ...usuario,
+          nome: 'Nome Atualizado Teste'
+        }
+
+        cy.request({
+          method: 'PUT',
+          url: `${apiUrl}/usuarios/${userId}`,
+          body: dadosAtualizados
+        }).then((response) => {
+          // Validação: verificar atualização
+          expect(response.status).to.equal(200)
+          expect(response.body.message).to.equal('Registro alterado com sucesso')
+        })
+
+        // Validação adicional: buscar usuário e confirmar alteração
+        cy.request({
+          method: 'GET',
+          url: `${apiUrl}/usuarios/${userId}`
+        }).then((response) => {
+          expect(response.body.nome).to.equal('Nome Atualizado Teste')
+        })
+      })
+    })
+  })
+
+  it('deve excluir um usuário com sucesso', () => {
+    cy.gerarUsuario().then((usuario) => {
+      // Pré-condição: criar usuário
+      cy.cadastrarUsuarioApi(usuario).then((resCadastro) => {
+        const userId = resCadastro.body._id
+
+        // Ação: excluir usuário
+        cy.request({
+          method: 'DELETE',
+          url: `${apiUrl}/usuarios/${userId}`
+        }).then((response) => {
+          // Validação: verificar exclusão
+          expect(response.status).to.equal(200)
+          expect(response.body.message).to.equal('Registro excluído com sucesso')
+        })
+
+        // Validação adicional: confirmar que não existe mais
+        cy.request({
+          method: 'GET',
+          url: `${apiUrl}/usuarios/${userId}`,
+          failOnStatusCode: false
+        }).then((response) => {
+          expect(response.status).to.equal(400)
+          expect(response.body.message).to.equal('Usuário não encontrado')
+        })
+      })
+    })
+  })
 })
