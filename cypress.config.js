@@ -9,9 +9,16 @@ module.exports = defineConfig({
     viewportWidth: 1280,
     viewportHeight: 720,
     defaultCommandTimeout: 10000,
+    requestTimeout: 10000,
+    responseTimeout: 15000,
+    retries: {
+      runMode: 2,
+      openMode: 0
+    },
     specPattern: 'cypress/e2e/**/*.cy.js',
     supportFile: 'cypress/support/e2e.js',
     video: false,
+    trashAssetsBeforeRuns: false,
     screenshotOnRunFailure: true,
     reporter: 'mochawesome',
     reporterOptions: {
