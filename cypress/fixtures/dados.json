@@ -1,0 +1,12 @@
+{
+  "loginInvalido": {
+    "email": "usuario_inexistente@teste.com",
+    "senha": "senhaErrada123"
+  },
+  "produto": {
+    "nome": "Notebook Gamer",
+    "preco": 4500,
+    "descricao": "Notebook para jogos com placa de vídeo dedicada",
+    "quantidade": 10
+  }
+}
