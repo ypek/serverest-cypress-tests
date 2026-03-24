@@ -12,10 +12,11 @@
     "format": "prettier --write \"cypress/**/*.js\"",
     "format:check": "prettier --check \"cypress/**/*.js\"",
     "prereport": "npm run report:clean",
-    "report": "npm run report:merge && npm run report:generate",
-    "report:clean": "rimraf cypress/reports/mochawesome-report && rimraf cypress/reports/mochawesome*.json",
+    "report": "npm run report:merge && npm run report:generate && npm run report:cleanup",
+    "report:clean": "rimraf cypress/reports",
     "report:merge": "mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome-report/report.json",
     "report:generate": "marge cypress/reports/mochawesome-report/report.json -f report -o cypress/reports/mochawesome-report",
+    "report:cleanup": "rimraf cypress/reports/mochawesome_*.json cypress/reports/mochawesome-report/report.json",
     "test": "npm run cy:run",
     "test:report": "npm run report:clean && npm run cy:run && npm run report"
   },
