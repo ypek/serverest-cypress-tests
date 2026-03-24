@@ -18,7 +18,7 @@ Projeto de testes automatizados utilizando **Cypress** e **JavaScript** para a a
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/SEU_USUARIO/serverest-cypress-tests.git
+git clone https://github.com/ypek/serverest-cypress-tests.git
 
 # Acessar o diretório do projeto
 cd serverest-cypress-tests
