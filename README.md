@@ -2,7 +2,7 @@
 
 Projeto de testes automatizados utilizando **Cypress** e **JavaScript** para a aplicação [ServeRest](https://serverest.dev/), cobrindo cenários de **frontend (E2E)** e **API**.
 
-![CI](https://github.com/SEU_USUARIO/serverest-cypress-tests/actions/workflows/cypress.yml/badge.svg)
+![CI](https://github.com/ypek/serverest-cypress-tests/actions/workflows/cypress.yml/badge.svg)
 
 ## Aplicação Testada
 
