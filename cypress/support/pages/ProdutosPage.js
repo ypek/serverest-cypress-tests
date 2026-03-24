@@ -4,7 +4,7 @@ class ProdutosPage {
   }
 
   get btnCadastrarProduto() {
-    return '[data-testid="cadastarProdutos"]'
+    return '[data-testid="cadastrarProdutos"]'
   }
 
   get inputNome() {
@@ -21,6 +21,10 @@ class ProdutosPage {
 
   get inputQuantidade() {
     return '[data-testid="quantity"]'
+  }
+
+  get inputImagem() {
+    return '[data-testid="imagem"]'
   }
 
   get btnCadastrar() {
@@ -43,7 +47,7 @@ class ProdutosPage {
     cy.get(this.btnCadastrarProduto).click()
   }
 
-  preencherFormularioProduto(nome, preco, descricao, quantidade) {
+  preencherFormularioProduto(nome, preco, descricao, quantidade, imagem = null) {
     cy.get(this.inputNome).clear()
     cy.get(this.inputNome).type(nome)
     cy.get(this.inputPreco).clear()
@@ -52,6 +56,9 @@ class ProdutosPage {
     cy.get(this.inputDescricao).type(descricao)
     cy.get(this.inputQuantidade).clear()
     cy.get(this.inputQuantidade).type(quantidade.toString())
+    if (imagem) {
+      cy.get(this.inputImagem).selectFile(imagem)
+    }
   }
 
   validarMensagem(mensagem) {

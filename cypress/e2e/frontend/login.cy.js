@@ -1,4 +1,5 @@
 import LoginPage from '../../support/pages/LoginPage'
+import AdminPage from '../../support/pages/AdminPage'
 
 describe('Login no Frontend', () => {
   beforeEach(() => {
@@ -46,5 +47,25 @@ describe('Login no Frontend', () => {
     // Validação: verificar redirecionamento para página de cadastro
     cy.url().should('include', '/cadastrarusuarios')
     cy.get('[data-testid="nome"]').should('be.visible')
+  })
+
+  it('deve realizar logout com sucesso', () => {
+    // Pré-condição: criar usuário e fazer login
+    cy.gerarUsuario().then((usuario) => {
+      cy.cadastrarUsuarioApi(usuario).then(() => {
+        LoginPage.preencherEmail(usuario.email)
+        LoginPage.preencherSenha(usuario.password)
+        LoginPage.clicarEntrar()
+        cy.url().should('include', '/admin/home')
+
+        // Ação: clicar no botão de logout
+        AdminPage.realizarLogout()
+
+        // Validação: verificar redirecionamento para tela de login
+        cy.url().should('include', '/login')
+        cy.get('[data-testid="email"]').should('be.visible')
+        cy.get('[data-testid="entrar"]').should('be.visible')
+      })
+    })
   })
 })
